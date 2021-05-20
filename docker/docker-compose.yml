@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+    php:
+        container_name: xdebug-symfony
+        extra_hosts: 
+            - "host.docker.internal:host-gateway"
+        environment: 
+            XDEBUG_MODE: "${XDEBUG_MODE}"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        hostname: xdebug-symfony
+        init: true
+        ports:
+            - "8000:8000"
+        volumes: 
+            - type: "bind"
+              source: ".."
+              target: "/demo"
+            - type: "bind"
+              source: "/tmp/xdebug"
+              target: "/tmp/xdebug"
